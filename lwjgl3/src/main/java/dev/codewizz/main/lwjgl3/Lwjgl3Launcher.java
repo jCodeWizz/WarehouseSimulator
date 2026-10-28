@@ -1,14 +1,20 @@
 package dev.codewizz.main.lwjgl3;
 
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import dev.codewizz.main.Main;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 
-/** Launches the desktop (LWJGL3) application. */
+/**
+ * Launches the desktop (LWJGL3) application.
+ */
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
+
+        createAtlas();
+
         createApplication();
     }
 
@@ -42,5 +48,12 @@ public class Lwjgl3Launcher {
         configuration.setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.ANGLE_GLES20, 0, 0);
 
         return configuration;
+    }
+
+    private static void createAtlas() {
+        Settings settings = new Settings();
+        settings.maxWidth = 2048;
+        settings.maxHeight = 2048;
+        TexturePacker.process(settings, "assets/textures", "assets/packs", "textures");
     }
 }
