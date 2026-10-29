@@ -2,17 +2,18 @@ package dev.codewizz.warehouse;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dev.codewizz.network.Network;
+import dev.codewizz.warehouse.pathfinding.NavGraph;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse {
 
-    private List<Robot> robots = new ArrayList<>();
-    private Network network;
+    private final List<Robot> robots = new ArrayList<>();
+    private final Network network;
 
     public Warehouse() {
-
+        network = new Network();
     }
 
     public void render(SpriteBatch batch) {
@@ -22,8 +23,12 @@ public class Warehouse {
     }
 
     public void addRobot(float x, float y) {
-        Robot robot = new Robot(network);
+        Robot robot = new Robot(this);
         robot.getPosition().set(x, y);
         robots.add(robot);
+    }
+
+    public Network getNetwork() {
+        return network;
     }
 }

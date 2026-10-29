@@ -1,10 +1,12 @@
 package dev.codewizz.network;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Network {
 
-    private final HashMap<Integer, Socket> sockets = new HashMap<>();
+    private final Map<Integer, Socket> sockets = new ConcurrentHashMap<>();
 
     public void openConnection(Socket socket) {
         sockets.put(socket.getId(), socket);
